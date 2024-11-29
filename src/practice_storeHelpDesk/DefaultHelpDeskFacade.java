@@ -1,23 +1,30 @@
 package practice_storeHelpDesk;
 
-public class DefaultHelpDeskFacade implements HelpDeskFacade {
+import java.util.PriorityQueue;
 
+public class DefaultHelpDeskFacade implements HelpDeskFacade {
+	
+
+	private static final int INITIAL_QUEUE_CAPACITY = 10;
+	private static PriorityQueue<SupportTicket> supportTickets;
+
+	{
+		supportTickets = new PriorityQueue<SupportTicket>(INITIAL_QUEUE_CAPACITY, new CustomSupportTicketsComparator());
+	}
+	
 	@Override
 	public void addNewSupportTicket(SupportTicket supportTicket) {
-		// TODO Auto-generated method stub
-
+		supportTickets.offer(supportTicket);
 	}
 
 	@Override
 	public SupportTicket getNextSupportTicket() {
-		// TODO Auto-generated method stub
-		return null;
+		return supportTickets.poll();
 	}
 
 	@Override
 	public int getNumberOfTickets() {
-		// TODO Auto-generated method stub
-		return 0;
+		return supportTickets.size();
 	}
 
 }
